@@ -1,0 +1,63 @@
+name: DRL
+channels:
+  - pytorch
+  - nvidia
+  - defaults
+  - conda-forge
+dependencies:
+  #BASIC PACKAGES TO INCLUDE IN ALL ENVS
+  #- python==3.6
+  - pip==21.3.1
+  - mkl=2021.2.0
+  - mkl-service==2.3.0
+  - mkl_fft==1.3.0
+  - mkl_random==1.2.1
+  - numpy==1.19.5
+  - pandas==1.1.5
+  - pillow==8.3.2
+  - jupyterlab==3.2.9
+  - notebook==6.4 #.12
+  - requests==2.27.1
+  - tqdm==4.62.3
+  - matplotlib==3.3.4
+  
+  - scikit-image==0.17.2
+  - scikit-learn==0.24.2
+  #- scipy==1.5.4
+  
+  # ENVIRONMENT SPECIFIC PACKAGES
+  - pytorch==1.10.1
+  - cudatoolkit=10.2
+  - torchvision==0.11.2
+
+  - pip:
+      - opencv-python==4.6.0.66
+      - imutils==0.5.4
+
+      #This .yml should be used to update a clean conda environment with python 3.10
+
+
+      # Install Sequence:
+
+      # Before installing the environment, the installation of "gymnasium" require system level tools to install 'box2d-py' RL environment. 
+      # Specifically, it need 'SWIG': C++ compiler, which in turn needs 'Chocolately'
+      # To install 'Chocolately':
+      # 1. Open command prompt in Admin mode
+      # 2. Paste the following script line-by-line (without the #)
+        # Set-ExecutionPolicy Bypass -Scope Process -Force; `
+        # [System.Net.ServicePointManager]::SecurityProtocol = `
+        # [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; `
+        # iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+      # 3. Make sure the installation works by running: choco --version
+      # 4. Restart the command prompt in Admin mode
+      # 5. Install "SWIG" using the following command:
+        # choco install swig -y
+      # 6. Make sure the installatino works by running: swig -version
+
+
+      # This environment should be OS independent, however the steps indicated above to install "Chocolately" and "SWIG" are specifically provided for Windows; my machine is running Windows 11
+      # It should be noted that the latest "Tensorflow" installation that support GPU under windows is version 2.10, running max under Python 3.10. This is why we are using 3.10 Python.
+
+      #CREATE NEW ENVIRONMENT USING:                                  conda create --name <env_name> python=3.6
+      #ACTIVATE THE CREATED ENVIRONMENT:                              conda activate <env_name>
+      #UPDATE THE ACTIVATED ENVIRONMENT USING THIS .yml FILE:         conda env update --file <file_name>.yml
